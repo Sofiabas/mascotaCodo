@@ -3,10 +3,13 @@ package modelos;
 import acciones.Alimentarse;
 import acciones.Divertirse;
 import acciones.Dormir;
+import acciones.HacerPopo;
 import enumeradores.AlmacenAlimentos;
 import enumeradores.EntretenimientosEnum;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import utils.RegistroCivilMascotas;
 
 public class Mascota {
 
@@ -26,14 +29,21 @@ public class Mascota {
   protected Divertirse divertirse;
   public static LocalDateTime ultimoDescanso;
   protected Dormir descansar;
-
+  protected int comidasIngeridas;
+  protected HacerPopo popo;
+  protected ArrayList<String> causaDeMuerte = new ArrayList<>();
+  protected String actaDefuncion;
+  protected String actaNacimiento;
 
   //metodo constructor que requiere dos datos al momento de la instanciacion (nombre y propietario)
+  public Mascota() {
+  }
+
   public Mascota(String nombre, String propietario) {
     setNombre(nombre);
     setPropietario(propietario);
     setLive(true);
-    setNivelEnergia(20);
+    setNivelEnergia(50);
     setNivelHambre((int) (Math.random() * 100));
     setNivelCansancio((int) (Math.random() * 100));
     setNivelFelicidad((int) (Math.random() * 100));
@@ -42,23 +52,29 @@ public class Mascota {
     this.alimentarse = new Alimentarse();
     this.divertirse = new Divertirse();
     this.descansar = new Dormir();
+    this.popo = new HacerPopo();
+    RegistroCivilMascotas.confeccionarActa(this);
   }
 
   //metodos de la instancia
 
   public void comer(AlmacenAlimentos alimento) {
     alimentarse.ingerirAlimento(alimento, this);
-  };
+  }
+
   public void dormir(LocalTime tiempo) {
     descansar.hacerDormir(tiempo, this);
-  };
+  }
+
   public void jugar(EntretenimientosEnum entretenimiento) {
     divertirse.entretenerseCon(entretenimiento, this);
-  };
+  }
+
+  public void irAlBaño() {
+    popo.evacuar(this);
+  }
 
   // getters
-
-
   public String getNombre() {
     return nombre;
   }
@@ -103,37 +119,62 @@ public class Mascota {
     return this.id;
   }
 
-  // setters
+  public int getComidasIngeridas() {
+    return comidasIngeridas;
+  }
 
-  private void setNombre(String nombre) {
+  public HacerPopo getPopo() {
+    return popo;
+  }
+
+  public ArrayList<String> getCausaDeMuerte() {
+    return causaDeMuerte;
+  }
+
+  public String getActaDefuncion() {
+    return actaDefuncion;
+  }
+
+  public String getActaNacimiento() {
+    return actaNacimiento;
+  }
+
+// setters
+
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setNombre(String nombre) {
     this.nombre = nombre;
   }
 
-  private void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+  public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
     this.fechaNacimiento = fechaNacimiento;
   }
 
-  private void setFechaMuerte(LocalDateTime fechaMuerte) {
+  public void setFechaMuerte(LocalDateTime fechaMuerte) {
     this.fechaMuerte = fechaMuerte;
   }
 
-  private void setLive(boolean live) {
+  public void setLive(boolean live) {
     isLive = live;
   }
 
   public void setNivelEnergia(int nivelEnergia) {
-    this.nivelEnergia = Math.min(nivelEnergia, 100);
+    this.nivelEnergia = Math.min(Math.max(nivelEnergia, 0), 100);
   }
 
   public void setNivelHambre(int nivelHambre) {
     this.nivelHambre = nivelHambre;
   }
 
-  private void setNivelCansancio(int nivelCansancio) {
+  public void setNivelCansancio(int nivelCansancio) {
     this.nivelCansancio = nivelCansancio;
   }
 
-  private void setNivelFelicidad(int nivelFelicidad) {
+  public void setNivelFelicidad(int nivelFelicidad) {
     this.nivelFelicidad = nivelFelicidad;
   }
 
@@ -141,9 +182,24 @@ public class Mascota {
     this.nivelAburrimiento = Math.max(nivelAburrimiento, 0);
   }
 
-  private void setPropietario(String propietario) {
+  public void setPropietario(String propietario) {
     this.propietario = propietario;
   }
 
+  public void setComidasIngeridas(int comidasIngeridas) {
+    this.comidasIngeridas = comidasIngeridas;
+  }
+
+  public void setCausaDeMuerte(String causaDeMuerte) {
+    this.causaDeMuerte.add(causaDeMuerte);
+  }
+
+  public void setActaDefuncion(String actaDefuncion) {
+    this.actaDefuncion = actaDefuncion;
+  }
+
+  public void setActaNacimiento(String actaNacimiento) {
+    this.actaNacimiento = actaNacimiento;
+  }
 
 }

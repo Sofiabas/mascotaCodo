@@ -1,8 +1,7 @@
-import enumeradores.AlmacenAlimentos;
-import enumeradores.EntretenimientosEnum;
-import java.time.LocalTime;
+import java.sql.Connection;
 import modelos.DukeMascota;
-import persistencia.persistenceCollections.MascotaPersistenceUseList;
+import persistencia.collections.MascotaPersistenceUseList;
+import persistencia.mysql.MySQLConnection;
 
 public class Main {
 
@@ -18,20 +17,30 @@ public class Main {
     persistence.guardar(duke3);
     persistence.guardar(duke4);
 
-//    System.out.println("antes de comer " + duke.getNivelEnergia());
-//    duke.comer(AlmacenAlimentos.ASADO);
-//    System.out.println("despues de comer " + duke.getNivelEnergia());
+    //    duke.comer(AlmacenAlimentos.ASADO);
+    //    duke.comer(AlmacenAlimentos.PORORO);
+    //    duke.comer(AlmacenAlimentos.PORORO);
+    //    duke.comer(AlmacenAlimentos.PORORO);
+    //    duke.comer(AlmacenAlimentos.PORORO);
+    //    duke.comer(AlmacenAlimentos.PORORO);
+    //    duke.comer(AlmacenAlimentos.PORORO);
+    //    duke.comer(AlmacenAlimentos.PORORO);
+    //    duke.comer(AlmacenAlimentos.PORORO);
+    //    duke.comer(AlmacenAlimentos.PORORO);
+    //    RegistroCivilMascotas.guardarActa(duke);
+
+    MySQLConnection conexion = new MySQLConnection();
+    Connection connection = conexion.establecerConexion();
+
+    conexion.cerrarConexion(connection);
+
+//    MascotaPersistenceUseMySQL persistenceUseBDMySQL = new MascotaPersistenceUseMySQL();
 //
-//    duke.jugar(EntretenimientosEnum.POKER);
-//    duke.jugar(EntretenimientosEnum.PASEAR);
-//    duke.jugar(EntretenimientosEnum.PASEAR);
-//    duke.jugar(EntretenimientosEnum.PERINOLA);
-//    duke.jugar(EntretenimientosEnum.BAILAR);
-//    duke.jugar(EntretenimientosEnum.BAILAR);
-    System.out.println("antes de dormir " + duke.getNivelEnergia());
-    duke.dormir(LocalTime.of(0,25));
-    System.out.println("despues de dormir " + duke.getNivelEnergia());
-
-
+//    persistenceUseBDMySQL.guardar(duke);
+//    persistenceUseBDMySQL.guardar(duke2);
+//    persistenceUseBDMySQL.guardar(duke3);
+//    persistenceUseBDMySQL.guardar(duke4);
+//    Mascota mascota = persistenceUseBDMySQL.getMascota(1);
+//    System.out.println(mascota.getId() + " " + mascota.getFechaNacimiento());
   }
 }
